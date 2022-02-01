@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+ {% block title %}Search Record{% endblock title %}
+ 
+ {% block forms %}
+ <div class="form-label-group">
+    {% render_field form.serial_number id="inputPassword" class="form-control" %}
+
+    <label for="inputPassword">Click here to find item</label>
+</div>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Search Record</button>
+
+
+
+
+
+  {% endblock forms %}
+
+  {% block content %}
+  {% if products %}
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">S/N</th>
+          <th scope="col">Serial Number</th>
+          <th scope="col">Added By</th>
+          <th scope="col">Added On</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for product in products %}
+              <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ product.serial_number }}</td>
+                  <td>{{ product.add_by.username }}</td>
+                  <td>{{ product.date }}</td>
+              </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+  
+  {% endblock content %}

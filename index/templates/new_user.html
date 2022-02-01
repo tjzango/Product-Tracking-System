@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+ {% block title %}Add User{% endblock title %}
+ 
+ {% block forms %}
+ <div class="form-label-group">
+    {% render_field form.username  id="inputPassword" class="form-control" %}
+
+    <label for="inputPassword">Enter username</label>
+</div>
+
+<div class="form-label-group">
+    {% render_field form.password type="password" id="inputPassword" class="form-control" %}
+
+    <label for="inputPassword">Enter password</label>
+</div>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Add User</button>
+
+{% endblock forms %}
+
+{% block content %}
+{% if users %}
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">S/N</th>
+        <th scope="col">Username</th>
+        <th scope="col">Last Login</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ user.username }}</td>
+                <td>{{ user.last_login }}</td>
+                <td><a href="{% url 'delete_user' user.id %}">Delete</a></td>
+            </tr>
+      {% endfor %}
+  </table>
+  {% endif %}
+
+  {% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+ {% block title %}Add New Record{% endblock title %}
+ 
+ {% block forms %}
+ <div class="form-label-group">
+    {% render_field form.serial_number  id="inputPassword" class="form-control" %}
+
+    <label for="inputPassword">Click here to add item</label>
+</div>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Add Product</button>
+{% endblock forms %}
