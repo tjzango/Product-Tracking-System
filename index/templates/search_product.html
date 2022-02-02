@@ -33,11 +33,18 @@
               <tr>
                   <th scope="row">{{ forloop.counter }}</th>
                   <td>{{ product.serial_number }}</td>
-                  <td>{{ product.add_by.username }}</td>
+                  <td>{{ product.add_by }}</td>
                   <td>{{ product.date }}</td>
               </tr>
         {% endfor %}
     </table>
+    {% endif %}
+    {% if not products and item %}
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Record Does Not Exist</th>
+      </tr>
+    </thead>
     {% endif %}
   
   {% endblock content %}

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Product(models.Model):
     serial_number = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
-    add_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    add_by = models.CharField(max_length=500)
 
     def __str__(self) -> str:
         return self.serial_number

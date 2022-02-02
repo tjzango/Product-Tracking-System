@@ -16,10 +16,13 @@ def add_product(request):
             Product.objects.get(serial_number=serial_number)
             messages.error(request, "Item Already Exist")
         except Product.DoesNotExist:
+            
+            #user = User.objects.get(username=request.user)
             Product.objects.create(
                 serial_number=serial_number,
-                add_by=request.user
+                add_by="{}".format(str(request.user))
             )
+            
             messages.success(request, "Added New item to inventory")
         return redirect('add_product')
 
@@ -44,12 +47,12 @@ def login_(request):
                 if user:
                     login(request, user)
                     return redirect('add_product')
-                messages.success(request, 'Username/Password does not match')
+                messages.error(request, 'Username/Password does not match')
             else:
-                messages.success(
+                messages.error(
                     request, 'Authorisation Error Contact Admin To Regain Access')
         except Exception as e:
-            messages.success(
+            messages.error(
                 request, 'Username/Password does not match'.format())    
         
     context = {
@@ -92,7 +95,8 @@ def search_product(request):
         serial_no = form.cleaned_data['serial_number']
         product = Product.objects.filter(serial_number=serial_no)
         context['products'] = product
-        
+        if not product.first():
+            messages.error(request, "Item does not exist in our inventory")
     return render(request, "search_product.html", context)
 
 
